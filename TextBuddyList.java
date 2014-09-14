@@ -24,7 +24,7 @@ public class TextBuddyList<E extends Comparable<E>> {
 	 * 
 	 * @return formattedTextEntriesOutput is being returned back to the controller for display.
 	 */
-	public String displayAllEntries () {
+	public String getDisplayAllEntries () {
 		if (isEmpty()) 
 			return null;
 		

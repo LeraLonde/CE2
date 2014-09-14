@@ -179,7 +179,7 @@ public class TextBuddyController {
 	}
 
 	private void displayAllEntries() {
-		String output = textEntriesList.displayAllEntries();
+		String output = textEntriesList.getDisplayAllEntries();
 		
 		if (output == null) {
 			printOutputMsg(String.format(MSG_NO_ENTRIES_FOUND, fileName));
