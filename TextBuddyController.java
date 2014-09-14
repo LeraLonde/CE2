@@ -137,6 +137,12 @@ public class TextBuddyController {
 		} else {
 			input = removeCMDFromInput(input);
 			int index = Integer.parseInt(input);
+			
+			if(index < 0) {
+				printOutputMsg(ERR_MSG_INVALID_COMMAND);
+				return;
+			}
+			
 			TextEntry entry = textEntriesList.deleteEntry(index-1);
 			
 			if (entry == null) {
