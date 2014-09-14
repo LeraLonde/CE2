@@ -139,7 +139,7 @@ public class TextBuddyController {
 		if (textEntriesList.isEmpty()) {
 			printOutputMsg(String.format(MSG_NO_ENTRIES_FOUND,fileName));
 		} else {
-			input = removeCMDFromInput(input);
+			input = removeCmdFromInput(input);
 			int index = convertStringToInteger(input);
 			
 			if(index < 0) {
@@ -159,7 +159,7 @@ public class TextBuddyController {
 	}
 	
 	private void searchEntry(String input) {
-		String searchKey = removeCMDFromInput(input);
+		String searchKey = removeCmdFromInput(input);
 		String searchResult = textEntriesList.getFilteredDisplayEntries(searchKey);
 		
 		if (searchResult.length() == 0) {
@@ -170,7 +170,7 @@ public class TextBuddyController {
 	}
 
 	private void addNewEntries(String input) {
-		String entryText = removeCMDFromInput(input);
+		String entryText = removeCmdFromInput(input);
 		textEntriesList.addToTextBuddyList(new TextEntry(entryText));
 		fileController.writeBackToFile(textEntriesList.getTextEntries());
 		printOutputMsg(String.format(MSG_TEXT_ADDED, fileName, entryText));
@@ -211,7 +211,7 @@ public class TextBuddyController {
 		System.out.println(msg);
 	}
 	
-	private String removeCMDFromInput(String input) {
+	private String removeCmdFromInput(String input) {
 		return input.substring(input.indexOf(" "), input.length()).trim();
 	}
 }
