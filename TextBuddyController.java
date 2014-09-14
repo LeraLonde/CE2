@@ -136,7 +136,7 @@ public class TextBuddyController {
 			printOutputMsg(String.format(MSG_NO_ENTRIES_FOUND,fileName));
 		} else {
 			input = removeCMDFromInput(input);
-			int index = Integer.parseInt(input);
+			int index = convertStringToInteger(input);
 			
 			if(index < 0) {
 				printOutputMsg(ERR_MSG_INVALID_COMMAND);
@@ -187,6 +187,15 @@ public class TextBuddyController {
 			printOutputMsg(output);	
 		}
 	}
+	
+	private int convertStringToInteger(String input) {
+		try {
+			return Integer.parseInt(input);
+		} catch (NumberFormatException e) {
+			return -1;
+		}
+	}
+	
 	
 	private String promptUserForInput () {		
 		System.out.print(USER_PROMPT_CMD_INPUT);
