@@ -39,10 +39,14 @@ public class TextBuddyController {
 	final String OPTION_SORT   = "sort";
 	final String OPTION_SEARCH = "search";
 
+	final int INVALID_INTEGER_INPUT = -1;
+	
 	private TextBuddyList<TextEntry> textEntriesList; 
 	private TextBuddyFileManager fileController;
 	private String fileName;
 	private Scanner scn = new Scanner(System.in);
+	
+	
 
 	public TextBuddyController(String fileName) {
 		this.fileName = fileName;
@@ -192,7 +196,7 @@ public class TextBuddyController {
 		try {
 			return Integer.parseInt(input);
 		} catch (NumberFormatException e) {
-			return -1;
+			return INVALID_INTEGER_INPUT;
 		}
 	}
 	
