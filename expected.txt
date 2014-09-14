@@ -1,0 +1,28 @@
+Welcome to TextBuddy. THISISMYINPUT.TXT is ready for use.
+command : display
+thisismyinput.txt is empty
+command : add test entry 1
+added to thisismyinput.txt : test entry 1
+command : add test entry 2
+added to thisismyinput.txt : test entry 2
+command : add test entry 3
+added to thisismyinput.txt : test entry 3
+command : display
+1	test entry 1 
+
+2	test entry 2 
+
+3	test entry 3 
+
+command : delete 2
+deleted from thisismyinput.txt : test entry 2
+command : display
+1	test entry 1 
+
+2	test entry 3 
+
+command : clear
+all content deleted from thisismyinput.txt
+command : display
+thisismyinput.txt is empty
+command : exit

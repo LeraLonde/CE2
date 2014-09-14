@@ -1,0 +1,16 @@
+Welcome to TextBuddy. MYTEXTFILE.TXT is ready for use.
+command : mytextfile.txt is empty
+command : added to mytextfile.txt : test entry 1
+command : added to mytextfile.txt : test entry 2
+command : added to mytextfile.txt : test entry 3
+command : 1	test entry 1 
+2	test entry 2 
+3	test entry 3 
+
+command : deleted from mytextfile.txt : test entry 2
+command : 1	test entry 1 
+2	test entry 3 
+
+command : all content deleted from mytextfile.txt
+command : mytextfile.txt is empty
+command : 

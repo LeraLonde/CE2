@@ -1,0 +1,10 @@
+display
+add test entry 1
+add test entry 2
+add test entry 3
+display
+delete 2
+display
+clear
+delete 2
+exit
