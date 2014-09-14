@@ -156,7 +156,7 @@ public class TextBuddyController {
 	
 	private void searchEntry(String input) {
 		String searchKey = removeCMDFromInput(input);
-		String searchResult = textEntriesList.filterDisplayEntries(searchKey);
+		String searchResult = textEntriesList.getFilteredDisplayEntries(searchKey);
 		
 		if (searchResult.length() == 0) {
 			printOutputMsg(String.format(MSG_SEARCH_NOT_FOUND, searchKey));

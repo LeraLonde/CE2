@@ -39,7 +39,7 @@ public class TextBuddyList<E extends Comparable<E>> {
 		return formattedTextEntriesOutput;
 	}
 	
-	public String filterDisplayEntries (String searchKey) {
+	public String getFilteredDisplayEntries (String searchKey) {
 		int count = 1;
 		String formattedTextEntriesOutput = "";
 		
