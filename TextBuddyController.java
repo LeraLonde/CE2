@@ -90,7 +90,7 @@ public class TextBuddyController {
 		}
 	}
 
-	public void start() {
+	public void executeCommand() {
 		printOutputMsg(String.format(MSG_WELCOME_TEXT,fileName));
 		readUserInput();
 	}

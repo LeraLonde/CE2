@@ -17,7 +17,7 @@ public class TextBuddy {
 		TextBuddyController tbControl = new TextBuddyController(args[0]);
 		
 		if( tbControl.init() ) {
-			tbControl.start();
+			tbControl.executeCommand();
 		} else {
 			//failed to initialize.
 			return;
