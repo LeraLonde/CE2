@@ -9,14 +9,14 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-
 public class TextBuddyControllerTest {
 
 	public static TextBuddyController tbc;
+	public static String fileName = "C:\\Users\\ASUS\\Desktop\\CE2_\\src\\mytextfile.txt";
 	
 	@BeforeClass
 	public static void beforeClass() {
-		tbc = new TextBuddyController("C:\\Users\\LeraLonde\\workspace\\CE2\\src\\mytextfile.txt");
+		tbc = new TextBuddyController(fileName);
 		tbc.init();
 	}
 	
@@ -42,7 +42,7 @@ public class TextBuddyControllerTest {
 		clearMethod.invoke(tbc);
 		
 		//Test case 1: Adding a new task entry
-		String expected = "added to C:\\Users\\LeraLonde\\workspace\\CE2\\src\\mytextfile.txt : this task is used to test the adding functions";
+		String expected = "added to "+ fileName +" : this task is used to test the adding functions";
 		String input = "add this task is used to test the adding functions";
 		String output = (String) addMethod.invoke(tbc, input);
 		assertEquals(output, expected);
@@ -55,23 +55,23 @@ public class TextBuddyControllerTest {
 		//Test case 3: delete the latest removed task
 		input = "delete 1";
 		output = (String) deleteMethod.invoke(tbc, input);
-		assertEquals(output, "deleted from C:\\Users\\LeraLonde\\workspace\\CE2\\src\\mytextfile.txt : this task is used to test the adding functions");
+		assertEquals(output, "deleted from "+fileName+" : this task is used to test the adding functions");
 		
 		//Test case 4: clear the list
 		output = (String)clearMethod.invoke(tbc);
-		assertEquals(output, "all content deleted from C:\\Users\\LeraLonde\\workspace\\CE2\\src\\mytextfile.txt");
+		assertEquals(output, "all content deleted from " + fileName);
 		
 		//Test case 5: removing something when the list is empty
 		input = "delete 1";
 		output = (String) deleteMethod.invoke(tbc, input);
-		assertEquals(output, "C:\\Users\\LeraLonde\\workspace\\CE2\\src\\mytextfile.txt is empty");
+		assertEquals(output, fileName + " is empty");
 		
 		//Test case 6: testing the sorting functions
 		
 		//Test case 6.1: sorting the list when it is empty
 		clearMethod.invoke(tbc);
 		output = (String)sortMethod.invoke(tbc);
-		assertEquals(output, "C:\\Users\\LeraLonde\\workspace\\CE2\\src\\mytextfile.txt is empty");
+		assertEquals(output, fileName + " is empty");
         
 		//Test case 6.2: sorting the list with a list of data
 		String[] inputs = {"add a5", "add a3", "add a1", "add a2", "add a4"};
