@@ -64,10 +64,9 @@ public class TextBuddyList<E extends Comparable<E>> {
 		return entry;
 	}
 	
-    public void sortEntrieList() {
+    public void sortEntriesList() {
     	Collections.sort(textEntries);
     }
-	
 	
 	public void clearEntireList() {
 		textEntries.clear();

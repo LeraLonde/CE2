@@ -46,10 +46,18 @@ public class TextBuddyController {
 	private String fileName;
 	private Scanner scn = new Scanner(System.in);
 	
-	
+	private String testOutput = "";
 
 	public TextBuddyController(String fileName) {
 		this.fileName = fileName;
+	}
+	
+	public TextBuddyList<TextEntry> getEntriesList() {
+		return textEntriesList;
+	}
+	
+	public String getOutputString() {
+		return testOutput;
 	}
 	
 	/**
@@ -126,34 +134,39 @@ public class TextBuddyController {
 		}
 	}
 	
-	private void sortEntry () {
+	private String sortEntry() {
 		if (textEntriesList.isEmpty()) {
 			printOutputMsg(String.format(MSG_NO_ENTRIES_FOUND,fileName));
+			return String.format(MSG_NO_ENTRIES_FOUND,fileName);
 		} else {
-			textEntriesList.sortEntrieList();
+			textEntriesList.sortEntriesList();
+			return textEntriesList.getDisplayAllEntries();
 		}
 	}
 
-	private void deleteEntry(String input) {
+	private String deleteEntry(String input) {
 		
 		if (textEntriesList.isEmpty()) {
 			printOutputMsg(String.format(MSG_NO_ENTRIES_FOUND,fileName));
+			return String.format(MSG_NO_ENTRIES_FOUND,fileName);
 		} else {
 			input = removeCmdFromInput(input);
 			int index = convertStringToInteger(input);
 			
 			if(index < 0) {
 				printOutputMsg(ERR_MSG_INVALID_COMMAND);
-				return;
+				return ERR_MSG_INVALID_COMMAND;
 			}
 			
 			TextEntry entry = textEntriesList.deleteEntry(index-1);
 			
 			if (entry == null) {
 				printOutputMsg(ERR_MSG_TEXT_DELETED);
+				return ERR_MSG_TEXT_DELETED;
 			} else {
 				printOutputMsg(String.format(MSG_TEXT_DELETED, fileName ,entry.toString()));
 				fileController.writeBackToFile(textEntriesList.getTextEntries());
+				return String.format(MSG_TEXT_DELETED, fileName ,entry.toString());
 			}
 		}
 	}
@@ -169,17 +182,19 @@ public class TextBuddyController {
 		}
 	}
 
-	private void addNewEntries(String input) {
+	private String addNewEntries(String input) {
 		String entryText = removeCmdFromInput(input);
 		textEntriesList.addToTextBuddyList(new TextEntry(entryText));
 		fileController.writeBackToFile(textEntriesList.getTextEntries());
 		printOutputMsg(String.format(MSG_TEXT_ADDED, fileName, entryText));
+		return String.format(MSG_TEXT_ADDED, fileName, entryText);
 	}
 
-	private void clearAllEntries() {
+	private String clearAllEntries() {
 		textEntriesList.clearEntireList();
 		fileController.writeBackToFile(textEntriesList.getTextEntries());
 		printOutputMsg(String.format(MSG_CLEAR_ALL_TEXT, fileName));
+		return String.format(MSG_CLEAR_ALL_TEXT, fileName);
 	}
 
 	private void displayAllEntries() {
@@ -208,6 +223,7 @@ public class TextBuddyController {
 	}
 
 	private void printOutputMsg(String msg) {
+		testOutput = msg;
 		System.out.println(msg);
 	}
 	
