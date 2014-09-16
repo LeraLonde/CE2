@@ -20,45 +20,83 @@ public class TextBuddyControllerTest {
 		tbc.init();
 	}
 	
-	@Test
-	public void testAddNewEntries() throws NoSuchMethodException,InvocationTargetException, IllegalAccessException {
-		String expected = "added to C:\\Users\\LeraLonde\\workspace\\CE2\\src\\mytextfile.txt : this task is used to test the adding functions";
-		String input = "add this task is used to test the adding functions";
-		
-		Method method = TextBuddyController.class.getDeclaredMethod("addNewEntries", String.class);
-		method.setAccessible(true);
-		String output = (String) method.invoke(tbc, input);
-		
-		assertEquals(output, expected);
-	}
-	
 	@Test 
-	public void testDeleteEntry() throws NoSuchMethodException,InvocationTargetException, IllegalAccessException {
+	public void testExecuteCommand() throws NoSuchMethodException,InvocationTargetException, IllegalAccessException {
+		
+		Method addMethod = TextBuddyController.class.getDeclaredMethod("addNewEntries", String.class);
+		addMethod.setAccessible(true);
+		
 		Method deleteMethod = TextBuddyController.class.getDeclaredMethod("deleteEntry", String.class);
 		deleteMethod.setAccessible(true);
+		
+		Method searchMethod = TextBuddyController.class.getDeclaredMethod("searchEntry", String.class);
+		searchMethod.setAccessible(true);
 		
 		Method clearMethod = TextBuddyController.class.getDeclaredMethod("clearAllEntries");
 		clearMethod.setAccessible(true);
 		
-		String input = "delete -1";
-		String output = (String) deleteMethod.invoke(tbc, input);
+		Method sortMethod = TextBuddyController.class.getDeclaredMethod("sortEntry");
+		sortMethod.setAccessible(true);
+		
+		//Reset the list for testing
+		clearMethod.invoke(tbc);
+		
+		//Test case 1: Adding a new task entry
+		String expected = "added to C:\\Users\\LeraLonde\\workspace\\CE2\\src\\mytextfile.txt : this task is used to test the adding functions";
+		String input = "add this task is used to test the adding functions";
+		String output = (String) addMethod.invoke(tbc, input);
+		assertEquals(output, expected);
+		
+		//Test case 2: selecting an invalid index
+		input = "delete -1";
+		output = (String) deleteMethod.invoke(tbc, input);
 		assertEquals(output, "Invalid Command.");
 		
+		//Test case 3: delete the latest removed task
 		input = "delete 1";
 		output = (String) deleteMethod.invoke(tbc, input);
 		assertEquals(output, "deleted from C:\\Users\\LeraLonde\\workspace\\CE2\\src\\mytextfile.txt : this task is used to test the adding functions");
 		
+		//Test case 4: clear the list
 		output = (String)clearMethod.invoke(tbc);
 		assertEquals(output, "all content deleted from C:\\Users\\LeraLonde\\workspace\\CE2\\src\\mytextfile.txt");
 		
+		//Test case 5: removing something when the list is empty
 		input = "delete 1";
 		output = (String) deleteMethod.invoke(tbc, input);
 		assertEquals(output, "C:\\Users\\LeraLonde\\workspace\\CE2\\src\\mytextfile.txt is empty");
-	}
-	
-	@Test
-	public void testSortEntries() throws NoSuchMethodException,InvocationTargetException, IllegalAccessException {
 		
+		//Test case 6: testing the sorting functions
+		
+		//Test case 6.1: sorting the list when it is empty
+		clearMethod.invoke(tbc);
+		output = (String)sortMethod.invoke(tbc);
+		assertEquals(output, "C:\\Users\\LeraLonde\\workspace\\CE2\\src\\mytextfile.txt is empty");
+        
+		//Test case 6.2: sorting the list with a list of data
+		String[] inputs = {"add a5", "add a3", "add a1", "add a2", "add a4"};
+		for(int i=0; i < inputs.length; i++) {
+			addMethod.invoke(tbc, inputs[i]);
+		}
+		
+		expected ="1\ta1 \n2\ta2 \n3\ta3 \n4\ta4 \n5\ta5 \n";
+		output = (String)sortMethod.invoke(tbc);
+		assertEquals(output, expected);
+		
+		//Test case 7: testing the search functions
+		
+		//Test case 7.1: searching the list when it is empty
+		input = "search 5";
+		expected = "1\ta5 \n";
+		output = (String)searchMethod.invoke(tbc, input);
+		System.out.println(output);
+		assertEquals(output, expected);
+		
+		//Test case 7.2: searching for a word that does not exist
+		input = "search does not exist";
+		expected = "Sorry there is no entries with the keyworld: does not exist";
+		output = (String)searchMethod.invoke(tbc, input);
+		assertEquals(output, expected);
 		
 	}
 }

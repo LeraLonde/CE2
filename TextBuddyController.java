@@ -140,7 +140,9 @@ public class TextBuddyController {
 			return String.format(MSG_NO_ENTRIES_FOUND,fileName);
 		} else {
 			textEntriesList.sortEntriesList();
+			printOutputMsg(textEntriesList.getDisplayAllEntries());
 			return textEntriesList.getDisplayAllEntries();
+			
 		}
 	}
 
@@ -171,14 +173,16 @@ public class TextBuddyController {
 		}
 	}
 	
-	private void searchEntry(String input) {
+	private String searchEntry(String input) {
 		String searchKey = removeCmdFromInput(input);
 		String searchResult = textEntriesList.getFilteredDisplayEntries(searchKey);
 		
 		if (searchResult.length() == 0) {
 			printOutputMsg(String.format(MSG_SEARCH_NOT_FOUND, searchKey));
+			return String.format(MSG_SEARCH_NOT_FOUND, searchKey);
 		} else {
 			printOutputMsg(searchResult);
+			return searchResult;
 		}
 	}
 
